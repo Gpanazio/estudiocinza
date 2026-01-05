@@ -2,32 +2,32 @@ import React from 'react';
 import { MessageCircle, MapPin, ChevronDown, Star } from 'lucide-react';
 
 const Hero: React.FC = () => {
-  const scrollToContact = () => {
+  const scrollToPricing = () => {
     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section id="home" className="relative min-h-screen w-full flex items-center overflow-hidden pt-32 md:pt-0">
+    <section id="home" className="relative min-h-[90vh] md:min-h-screen w-full flex items-center overflow-hidden pt-24 md:pt-0">
       
-      {/* Radial fade for better text readability against grid */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none" />
+      {/* Background Grid Subtle Overlay */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-white via-white/90 to-transparent pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full h-full flex flex-col md:flex-row items-center gap-16 md:gap-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center gap-12 lg:gap-20">
         
         {/* LEFT: Content */}
-        <div className="flex-1 text-center md:text-left relative z-20 min-w-[300px]">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cinza-100 text-cinza-800 mb-8 border border-cinza-200 animate-slide-up">
-                <Star size={12} className="fill-current" />
-                <span className="text-[10px] font-bold tracking-widest uppercase">Estúdio Profissional RJ</span>
+        <div className="flex-1 text-center md:text-left relative z-20">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cinza-100 text-cinza-900 mb-6 border border-cinza-200 animate-slide-up shadow-sm">
+                <Star size={14} className="fill-cinza-900" />
+                <span className="text-[11px] font-bold tracking-[0.2em] uppercase">Estúdio Profissional RJ</span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl xl:text-8xl font-display font-bold text-black mb-8 leading-[0.95] tracking-tight animate-slide-up" style={{animationDelay: '0.1s'}}>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black mb-6 leading-[1.1] tracking-tight animate-slide-up" style={{animationDelay: '0.1s'}}>
               Menos logística, <br />
               <span className="text-cinza-400">mais criação.</span>
             </h1>
             
-            <p className="text-cinza-600 max-w-lg text-lg md:text-xl mb-12 leading-relaxed animate-slide-up mx-auto md:mx-0" style={{animationDelay: '0.2s'}}>
-                Estúdio completo no Centro do Rio. Equipamentos, acústica e cenário prontos para usar: sem montagens demoradas, sem complicação.
+            <p className="text-cinza-600 max-w-lg text-lg md:text-xl mb-10 leading-relaxed animate-slide-up mx-auto md:mx-0 font-light" style={{animationDelay: '0.2s'}}>
+                Infraestrutura completa no coração da Lapa. Equipamentos de ponta e ambientes prontos para o seu próximo projeto fotográfico ou audiovisual.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-slide-up" style={{animationDelay: '0.3s'}}>
@@ -35,42 +35,46 @@ const Hero: React.FC = () => {
                 href="https://wa.me/5521999846611"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-center gap-3 bg-black text-white px-8 py-4 font-bold tracking-wide hover:bg-cinza-800 transition-all rounded shadow-lg hover:shadow-xl hover:-translate-y-1"
+                className="group flex items-center justify-center gap-3 bg-black text-white px-8 py-4 font-bold tracking-wide hover:bg-cinza-900 transition-all rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
               >
-                <MessageCircle size={20} />
+                <MessageCircle size={18} />
                 Reservar Data
               </a>
               <button 
-                 onClick={scrollToContact}
-                 className="group flex items-center justify-center gap-3 bg-white text-black px-8 py-4 font-bold tracking-wide hover:bg-cinza-50 transition-colors border border-cinza-200 rounded"
+                 onClick={scrollToPricing}
+                 className="group flex items-center justify-center gap-3 bg-white text-black px-8 py-4 font-bold tracking-wide hover:bg-cinza-50 transition-colors border border-cinza-200 rounded-lg shadow-sm"
               >
                 Consultar Valores
               </button>
             </div>
             
-             <div className="mt-16 flex items-center justify-center md:justify-start gap-2 text-cinza-500 animate-slide-up" style={{animationDelay: '0.4s'}}>
-                <MapPin size={16} />
-                <span className="text-sm font-medium border-b border-cinza-300 pb-0.5">Lapa, Rua Teotônio Regadas</span>
+             <div className="mt-12 flex items-center justify-center md:justify-start gap-3 text-cinza-500 animate-slide-up" style={{animationDelay: '0.4s'}}>
+                <div className="p-2 bg-cinza-50 rounded-full border border-cinza-100">
+                    <MapPin size={16} />
+                </div>
+                <span className="text-sm font-medium border-b border-cinza-200 pb-0.5">Rua Teotônio Regadas, 26 — Lapa</span>
             </div>
         </div>
 
         {/* RIGHT: Atmosphere Image */}
-        <div className="hidden md:flex flex-1 w-full h-full items-center justify-center relative z-10">
-            <div className="relative w-full max-w-lg aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm shadow-2xl">
+        <div className="hidden md:flex flex-1 w-full items-center justify-center relative z-10">
+            <div className="relative w-full max-w-md aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl border-[12px] border-white ring-1 ring-cinza-100">
                 <img 
                   src="https://images.unsplash.com/photo-1588483977959-badc9893d432?q=80&w=2000&auto=format&fit=crop" 
                   alt="Estúdio Fotográfico Minimalista" 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                  className="w-full h-full object-cover grayscale brightness-110 hover:grayscale-0 transition-all duration-1000 ease-in-out scale-105 hover:scale-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-20"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
             </div>
+            {/* Geometric Accent */}
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 border-r-2 border-b-2 border-cinza-200 rounded-br-2xl -z-10"></div>
         </div>
       </div>
       
       {/* Scroll Indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cinza-400 animate-bounce z-20">
-        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-        <ChevronDown size={20} />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cinza-300 animate-bounce z-20">
+        <span className="text-[9px] uppercase tracking-[0.3em] font-bold">Explore</span>
+        <ChevronDown size={18} />
       </div>
     </section>
   );
