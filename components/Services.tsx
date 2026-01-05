@@ -1,132 +1,111 @@
 import React from 'react';
+import { Coffee, User, HardDrive } from 'lucide-react';
 
 const Services: React.FC = () => {
   return (
-    <section id="space" className="py-32 bg-transparent px-6 border-b border-cinza-100/50">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row gap-20 items-center lg:items-start">
-            
-            {/* LEFT: Description */}
-            <div className="lg:w-1/3 sticky top-32">
-                <h2 className="text-6xl md:text-8xl font-display font-bold text-cinza-900 mb-10 tracking-tighter leading-none whitespace-nowrap">
-                    O ESPAÇO
-                </h2>
-                <div className="w-20 h-2 bg-black mb-10"></div>
+    <section id="space" className="py-24 md:py-32 bg-transparent px-6 border-b border-gray-100 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 items-center lg:items-start">
+          
+          {/* Lado Esquerdo: Descrição */}
+          <div className="lg:w-1/3 sticky top-40 z-20">
+              <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-1 bg-black"></div>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400">Planta Técnica</span>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-display font-bold text-black mb-8 tracking-tighter leading-none">
+                  O ESPAÇO
+              </h2>
+              <p className="text-gray-600 leading-relaxed mb-6 text-lg font-light">
+                  Projetado para o fluxo audiovisual contemporâneo. O Estúdio Cinza oferece 52m² de área útil divididos de forma inteligente entre set, produção e áreas de apoio.
+              </p>
+              <div className="flex flex-col gap-6 mt-12 border-t border-gray-100 pt-10">
+                  <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-black text-white rounded flex items-center justify-center font-bold text-xs uppercase tracking-widest shadow-lg">Set</div>
+                      <span className="text-sm text-gray-600 font-medium">Ciclorama Infinito Integrado</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 border border-black rounded flex items-center justify-center">
+                          <User size={16} />
+                      </div>
+                      <span className="text-sm text-gray-600 font-medium">Camarim e Área de Troca</span>
+                  </div>
+              </div>
+          </div>
 
-                <p className="text-cinza-600 leading-relaxed mb-6 text-lg md:text-xl font-light">
-                    O Estúdio Cinza foi desenhado por fotógrafos para fotógrafos. Um ambiente limpo, técnico e sem distrações visuais.
-                </p>
-                <p className="text-cinza-600 leading-relaxed text-lg md:text-xl font-light">
-                    Contamos com camarim completo, copa equipada e área de produção integrada ao estúdio, permitindo que cliente e equipe trabalhem com conforto.
-                </p>
-            </div>
+          {/* Lado Direito: Planta Baixa (Fiel ao mapaestudio.png) */}
+          <div className="lg:w-2/3 w-full bg-gray-50/90 backdrop-blur-md p-6 md:p-16 rounded-[40px] border border-gray-200 flex items-center justify-center shadow-inner relative">
+              <div className="relative w-full aspect-square md:aspect-[1.3/1] select-none text-black">
+                  
+                  {/* --- BLOCO SUPERIOR --- */}
+                  
+                  {/* Estúdio / Set (Superior Esquerda) */}
+                  <div className="absolute top-0 left-0 w-[60%] h-[65%] border-2 border-black bg-white hover:bg-gray-50 transition-all duration-500 z-10 flex flex-col justify-center items-center shadow-md overflow-hidden">
+                      <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-gray-100 rounded-tl-[40px] opacity-40"></div>
+                      <span className="font-display font-bold text-sm md:text-2xl text-black uppercase tracking-[0.4em]">Estúdio</span>
+                      <div className="text-[9px] md:text-[11px] text-gray-400 font-mono mt-2 uppercase tracking-widest">Set Principal</div>
+                  </div>
 
-            {/* RIGHT: The Blueprint */}
-            <div className="lg:w-2/3 w-full bg-cinza-50/80 backdrop-blur-sm p-6 md:p-12 rounded-xl border border-cinza-200 flex items-center justify-center">
-                
-                 {/* Blueprint Container - Responsive Aspect Ratio */}
-                <div className="relative w-full aspect-square md:aspect-[1.1/1] select-none text-cinza-900">
-                
-                {/* --- MAIN STRUCTURE (Absolute Positioning %) --- */}
-                
-                {/* 1. ESTÚDIO (Top Left) */}
-                <div className="absolute top-0 left-0 w-[58%] h-[48%] border-2 border-cinza-900 bg-white hover:bg-cinza-50 transition-colors z-10 flex flex-col justify-center items-center group shadow-sm">
-                    <span className="font-display font-bold text-sm md:text-xl text-cinza-800">Estúdio</span>
-                    <div className="text-[8px] md:text-[10px] text-cinza-500 font-mono mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Ciclorama Infinito</div>
-                </div>
+                  {/* Camarim (Superior Direita) */}
+                  <div className="absolute top-0 right-0 w-[40%] h-[40%] border-t-2 border-r-2 border-b-2 border-black bg-white z-10 p-6 flex flex-col items-center justify-center shadow-sm">
+                      <div className="flex items-center gap-2 mb-2">
+                          <User size={14} className="text-gray-300" />
+                          <span className="font-display font-bold text-[10px] md:text-xs uppercase tracking-widest">Camarim</span>
+                      </div>
+                      <div className="w-full h-1 bg-gray-50 rounded-full border border-gray-100"></div>
+                      <div className="absolute top-2 right-2 w-6 h-6 border-l border-b border-gray-100 opacity-30 rounded-bl-xl"></div>
+                  </div>
 
-                {/* Dimensions for Studio */}
-                <div className="absolute top-[-20px] left-0 w-[58%] text-center border-b border-cinza-400">
-                    <span className="relative -top-2 bg-cinza-50 px-1 text-[8px] md:text-[10px] font-mono text-cinza-600">5,30m</span>
-                </div>
-                <div className="absolute top-0 left-[-20px] h-[48%] flex flex-col justify-center items-end border-r border-cinza-400 pr-1">
-                    <span className="bg-cinza-50 py-1 text-[8px] md:text-[10px] font-mono text-cinza-600 [writing-mode:vertical-lr] rotate-180">4,15m</span>
-                </div>
+                  {/* Copa (Abaixo do Camarim) */}
+                  <div className="absolute top-[40%] right-0 w-[40%] h-[25%] border-r-2 border-b-2 border-black bg-white flex flex-col items-center justify-center z-10 shadow-sm overflow-hidden">
+                      <div className="absolute inset-0 opacity-[0.05]" style={{backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 4px)'}}></div>
+                      <div className="flex items-center gap-2 z-20">
+                          <Coffee size={14} className="text-gray-400" />
+                          <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">Copa Técnica</span>
+                      </div>
+                  </div>
 
+                  {/* --- BLOCO INFERIOR --- */}
+                  
+                  {/* Lounge (Inferior Esquerda) */}
+                  <div className="absolute top-[65%] left-0 w-[50%] h-[35%] border-l-2 border-b-2 border-r-2 border-black bg-white z-10 p-8 shadow-sm flex flex-col justify-center items-center">
+                      <span className="font-display font-bold text-xs md:text-sm uppercase tracking-widest block">Lounge</span>
+                      <div className="mt-4 flex gap-2">
+                          <div className="w-10 h-6 border border-gray-100 rounded-sm"></div>
+                          <div className="w-10 h-6 border border-gray-100 rounded-sm"></div>
+                      </div>
+                      {/* Porta de Entrada */}
+                      <div className="absolute bottom-[-2px] left-12 w-16 h-1 bg-white border-x border-black z-30"></div>
+                      <div className="absolute bottom-0 left-12 w-16 h-16 border-l border-t border-gray-200 rounded-tl-full -translate-y-full opacity-30 pointer-events-none"></div>
+                  </div>
 
-                {/* 2. LOUNGE (Bottom Left) */}
-                <div className="absolute top-[48%] left-0 w-[44%] h-[48%] border-l-2 border-b-2 border-r-2 border-cinza-900 bg-white hover:bg-cinza-50 transition-colors z-10 p-2 md:p-4 shadow-sm">
-                    <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 leading-none">
-                        <span className="font-display font-bold text-xs md:text-sm text-cinza-800 block">Espaço café</span>
-                        <span className="font-display font-bold text-xs md:text-sm text-cinza-800 block">/lounge</span>
-                    </div>
-                    {/* Props: Oval Table */}
-                    <div className="absolute bottom-4 left-10 md:left-16 w-10 md:w-16 h-5 md:h-8 border border-cinza-400 rounded-[50%] rotate-0"></div>
-                    <div className="absolute bottom-6 left-2 md:left-4 w-4 md:w-6 h-8 md:h-12 border border-cinza-400 rounded-[50%] rotate-0"></div>
-                    
-                    {/* Door Arc */}
-                    <div className="absolute bottom-0 right-[-1px] w-6 md:w-8 h-6 md:h-8 border-t border-l border-cinza-900 rounded-tl-full pointer-events-none origin-bottom-right"></div>
-                </div>
+                  {/* Suporte: Depósito + WC (Inferior Direita) */}
+                  <div className="absolute top-[65%] left-[50%] w-[50%] h-[35%] border-b-2 border-r-2 border-black bg-gray-50/50 z-10 flex shadow-sm">
+                      <div className="w-1/2 border-r border-gray-200 flex flex-col items-center justify-center p-4 text-center">
+                           <HardDrive size={16} className="text-gray-200 mb-2" />
+                           <span className="text-[7px] md:text-[9px] font-bold uppercase leading-tight tracking-widest text-gray-400">Depósito Grip</span>
+                      </div>
+                      <div className="w-1/2 flex flex-col items-center justify-center p-4 text-center bg-white">
+                           <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-widest">WC</span>
+                           <div className="mt-2 w-4 h-4 border border-gray-200 rounded-full"></div>
+                      </div>
+                  </div>
 
-                {/* Dimensions for Lounge */}
-                <div className="absolute top-[48%] left-[-20px] h-[48%] flex flex-col justify-center items-end border-r border-cinza-400 pr-1">
-                    <span className="bg-cinza-50 py-1 text-[8px] md:text-[10px] font-mono text-cinza-600 [writing-mode:vertical-lr] rotate-180">4,15m</span>
-                </div>
-                <div className="absolute bottom-[-20px] left-0 w-[44%] text-center border-t border-cinza-400 pt-1">
-                    <span className="bg-cinza-50 px-1 text-[8px] md:text-[10px] font-mono text-cinza-600">4,0m</span>
-                </div>
-                {/* The little notch on the bottom left corner */}
-                <div className="absolute bottom-[-2px] left-[-2px] w-4 h-4 bg-white border-l-2 border-b-2 border-cinza-900 z-20 translate-y-2 -translate-x-2"></div>
+                  {/* Cotas Técnicas */}
+                  <div className="absolute top-[-35px] left-0 w-[60%] flex items-center justify-center">
+                      <div className="h-[1px] bg-gray-300 w-full relative">
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-gray-300 rotate-45"></div>
+                          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-gray-300 rotate-45"></div>
+                          <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-mono text-gray-400 bg-gray-50 px-2 tracking-widest uppercase italic">5.30m</span>
+                      </div>
+                  </div>
+                  <div className="absolute top-0 left-[-35px] h-[65%] flex items-center">
+                      <div className="w-[1px] bg-gray-300 h-full relative">
+                          <span className="absolute left-[-22px] top-1/2 -translate-y-1/2 text-[10px] font-mono text-gray-400 [writing-mode:vertical-lr] rotate-180 bg-gray-50 py-2 tracking-widest uppercase italic">4.15m</span>
+                      </div>
+                  </div>
 
-
-                {/* 3. SERVICE BLOCK (Right of Studio) */}
-                <div className="absolute top-0 left-[58%] w-[25%] h-[32%] z-10">
-                    
-                    {/* Bathroom (Top) */}
-                    <div className="absolute top-0 left-0 w-[60%] h-[50%] border-t-2 border-r-2 border-b-2 border-cinza-900 bg-white flex flex-col items-center justify-center p-1 text-center shadow-sm">
-                        <span className="text-[6px] md:text-[8px] font-bold leading-tight block">Banheiro</span>
-                        <span className="hidden md:block text-[6px] font-mono text-cinza-500">1,25x1,50</span>
-                        {/* Door Arc */}
-                        <div className="absolute top-[20%] left-[-8px] w-3 md:w-4 h-3 md:h-4 border-b border-r border-cinza-900 rounded-br-full"></div>
-                    </div>
-
-                    {/* Equipamentos (Right of Bathroom) */}
-                    <div className="absolute top-[15%] left-[60%] w-[100%] h-[85%] border-t-2 border-r-2 border-b-2 border-cinza-900 bg-white flex items-center justify-center p-1 text-center shadow-sm z-20 hover:bg-cinza-50 transition-colors">
-                        <span className="text-[6px] md:text-[8px] font-bold [writing-mode:vertical-lr] md:[writing-mode:horizontal-tb]">Equip.</span>
-                    </div>
-
-                    {/* Copa (Below Bathroom - Hatched) */}
-                    <div className="absolute top-[50%] left-0 w-[60%] h-[50%] border-r-2 border-b-2 border-cinza-900 bg-white flex items-center justify-center overflow-hidden">
-                        <div className="absolute inset-0 opacity-20" style={{backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 4px)'}}></div>
-                    </div>
-                    <span className="absolute -bottom-4 left-1 md:left-2 text-[8px] md:text-[10px] font-bold text-cinza-500">Copa</span>
-
-                </div>
-
-
-                {/* 4. CAMARIM (Right Side - Bottom) */}
-                <div className="absolute top-[64%] left-[44%] right-0 h-[32%] border-t-2 border-r-2 border-b-2 border-cinza-900 bg-white hover:bg-cinza-50 transition-colors z-10 p-3 md:p-6 flex flex-col justify-end items-end shadow-sm">
-                    
-                    <span className="font-display font-bold text-sm md:text-lg">Camarim</span>
-                    
-                    {/* Provador (Curved Corner Top Right) */}
-                    <div className="absolute top-0 right-0 w-10 md:w-16 h-10 md:h-16 border-l border-b border-cinza-400 rounded-bl-[20px] md:rounded-bl-[40px] flex items-center justify-center">
-                        <span className="text-[6px] md:text-[8px] font-bold text-cinza-400 rotate-45 -mt-1 md:-mt-2 -ml-1 md:-ml-2">Provador</span>
-                    </div>
-
-                    {/* Furniture: Oval Table */}
-                    <div className="absolute bottom-8 md:bottom-12 left-8 md:left-12 w-8 md:w-12 h-6 md:h-8 border border-cinza-400 rounded-[50%]"></div>
-                    
-                    {/* Horizontal Table Box */}
-                    <div className="absolute bottom-2 md:bottom-4 right-2 md:right-4 w-20 md:w-32 h-6 md:h-10 border border-cinza-300 bg-cinza-50"></div>
-                </div>
-
-                {/* Dimensions for Camarim */}
-                <div className="absolute top-[64%] left-[44%] w-[56%] border-t border-cinza-400 text-center">
-                    <span className="relative -top-3 bg-cinza-50 px-1 text-[8px] md:text-[10px] font-mono text-cinza-600">4,60m</span>
-                </div>
-                <div className="absolute top-[64%] right-[-20px] h-[32%] flex flex-col justify-center border-l border-cinza-400 pl-1">
-                    <span className="bg-cinza-50 py-1 text-[8px] md:text-[10px] font-mono text-cinza-600 [writing-mode:vertical-lr]">2,75m</span>
-                </div>
-                
-                {/* Vertical Spacer Line for the right side gap */}
-                <div className="absolute top-0 right-[-5px] h-[20%] border-l border-dashed border-cinza-300">
-                        <span className="absolute top-2 left-1 text-[6px] md:text-[8px] text-cinza-400 font-mono">1,0m</span>
-                </div>
-
-                </div>
-            </div>
-        </div>
+              </div>
+          </div>
       </div>
     </section>
   );
