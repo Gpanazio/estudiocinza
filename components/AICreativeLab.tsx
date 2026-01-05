@@ -1,78 +1,58 @@
 import React from 'react';
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 import { PricingTier } from '../types';
 
 const tiers: PricingTier[] = [
   {
-    title: "Meia Diária (4h)",
+    title: "Meia Diária",
     price: "R$ 600",
-    features: ["Período: Manhã ou Tarde", "Todos equipamentos inclusos", "Limpeza inclusa", "1 Vaga de estacionamento"],
+    features: ["4 Horas de locação", "Equipamentos grip incluídos", "Limpeza incluída", "1 Vaga de estacionamento"],
     highlight: false
   },
   {
-    title: "Diária Completa (8h)",
+    title: "Diária Completa",
     price: "R$ 1.000",
-    features: ["Período: 09h às 17h", "Todos equipamentos inclusos", "Limpeza inclusa", "2 Vagas de estacionamento", "Melhor Custo-Benefício"],
+    features: ["8 Horas de locação", "Equipamentos grip incluídos", "Limpeza incluída", "2 Vagas de estacionamento", "Melhor Relação Custo-Benefício"],
     highlight: true
   },
   {
-    title: "Editorial (10h)",
+    title: "Editorial 10h",
     price: "R$ 1.300",
-    features: ["Período flexível", "Todos equipamentos inclusos", "Limpeza inclusa", "2 Vagas de estacionamento", "Assistente de estúdio (opcional +$)"],
+    features: ["10 Horas (Período Estendido)", "Equipamentos grip incluídos", "Limpeza incluída", "2 Vagas de estacionamento", "Suporte técnico básico"],
     highlight: false
   }
 ];
 
 const Pricing: React.FC = () => {
   return (
-    <section id="pricing" className="py-32 bg-transparent px-6 border-t border-cinza-200">
+    <section id="pricing" className="py-24 md:py-32 bg-transparent px-6 border-t border-gray-100">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-cinza-900 mb-6">Valores</h2>
-          <p className="text-cinza-600 text-lg">Sem taxas escondidas. O que você vê é o que você paga.</p>
+          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.4em] mb-4 block">Tarifário Transparente</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tighter">LOCAÇÃO</h2>
         </div>
-
-        <div className="grid md:grid-cols-3 gap-8 md:gap-12 max-w-6xl mx-auto">
-          {tiers.map((tier, index) => (
-            <div 
-              key={index}
-              className={`relative bg-white/90 backdrop-blur-sm p-10 rounded-2xl shadow-sm border ${tier.highlight ? 'border-black ring-1 ring-black shadow-xl scale-105 z-10' : 'border-cinza-200'}`}
-            >
-              {tier.highlight && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
-                    Mais Popular
-                </div>
-              )}
-              <h3 className="text-xl font-bold text-cinza-900 mb-2">{tier.title}</h3>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-5xl font-bold tracking-tight text-black">{tier.price}</span>
-                <span className="text-cinza-500">/sessão</span>
+        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {tiers.map((tier, i) => (
+            <div key={i} className={`relative flex flex-col p-12 rounded-[40px] transition-all duration-700 ${tier.highlight ? 'bg-black text-white shadow-3xl scale-100 lg:scale-105 z-10' : 'bg-white border border-gray-100 hover:border-black'}`}>
+              <h3 className={`text-[10px] font-bold uppercase tracking-[0.3em] mb-8 ${tier.highlight ? 'text-gray-500' : 'text-gray-400'}`}>{tier.title}</h3>
+              <div className="mb-10 flex items-baseline gap-2">
+                  <span className="text-5xl font-display font-bold tracking-tighter">{tier.price}</span>
+                  <span className="text-sm opacity-40 font-light">/ sessão</span>
               </div>
-              
-              <ul className="space-y-5 mb-10">
-                {tier.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-cinza-600 leading-relaxed">
-                        <Check className="w-5 h-5 text-green-600 shrink-0" />
-                        {feature}
+              <ul className="space-y-5 mb-12 flex-grow">
+                {tier.features.map((f, j) => (
+                    <li key={j} className="flex items-start gap-3 text-sm font-light leading-snug">
+                        <Check className={`w-4 h-4 mt-0.5 shrink-0 ${tier.highlight ? 'text-white' : 'text-black'}`} />
+                        <span className={tier.highlight ? 'text-gray-400' : 'text-gray-600'}>{f}</span>
                     </li>
                 ))}
               </ul>
-
-              <a 
-                href="https://wa.me/5521999846611?text=Olá, gostaria de reservar uma diária."
-                target="_blank"
-                rel="noreferrer"
-                className={`block w-full py-4 px-6 rounded-lg text-center font-bold tracking-wide transition-colors ${tier.highlight ? 'bg-black text-white hover:bg-cinza-800' : 'bg-cinza-100 text-cinza-900 hover:bg-cinza-200'}`}
-              >
-                Reservar Agora
+              <a href="https://wa.me/5521999846611" className={`flex items-center justify-center gap-3 w-full py-5 rounded-2xl font-bold transition-all shadow-lg ${tier.highlight ? 'bg-white text-black hover:bg-gray-100' : 'bg-black text-white hover:bg-gray-900'}`}>
+                  Reservar Agora
+                  <ArrowRight size={16} />
               </a>
             </div>
           ))}
-        </div>
-
-        <div className="mt-16 text-center text-sm text-cinza-500">
-            <p>Hora extra: R$ 150/h • Finais de semana e feriados: acréscimo de 20%</p>
-            <p className="mt-2">Formas de pagamento: PIX (5% desc) ou Cartão de Crédito em até 3x.</p>
         </div>
       </div>
     </section>
