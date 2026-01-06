@@ -18,3 +18,13 @@ View your app in AI Studio: https://ai.studio/apps/drive/1l1k1aK5n4fcc8rp8GLn_VA
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+### Instagram real
+Para exibir o feed real do Instagram no grid da galeria, crie um arquivo `.env.local` na raiz com:
+
+```
+VITE_INSTAGRAM_ACCESS_TOKEN=<access_token_do_graph_api>
+VITE_INSTAGRAM_USER_ID=<instagram_user_id>
+```
+
+Os valores vêm do Instagram Basic Display/Graph API. Em ambientes sem essas variáveis, o feed mostrará uma mensagem de erro e um link direto para o perfil.

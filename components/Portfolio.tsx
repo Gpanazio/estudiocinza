@@ -1,47 +1,37 @@
-import React from 'react';
-import { Instagram, Heart, MessageCircle, ExternalLink } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Instagram, ExternalLink, Loader2 } from 'lucide-react';
+import { fetchInstagramMedia, InstagramMedia } from '../services/instagramService';
 
-// Simulating latest posts with high-quality studio aesthetic images
-const instagramPosts = [
-  { 
-    id: 1, 
-    url: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1470&auto=format&fit=crop", 
-    likes: "124",
-    comments: "8"
-  },
-  { 
-    id: 2, 
-    url: "https://images.unsplash.com/photo-1554048612-387768052bf7?q=80&w=1530&auto=format&fit=crop", 
-    likes: "89",
-    comments: "3"
-  },
-  { 
-    id: 3, 
-    url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1638&auto=format&fit=crop", 
-    likes: "256",
-    comments: "12"
-  },
-  { 
-    id: 4, 
-    url: "https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=2670&auto=format&fit=crop", 
-    likes: "142",
-    comments: "5"
-  },
-  { 
-    id: 5, 
-    url: "https://images.unsplash.com/photo-1534234828563-02511c766f76?q=80&w=2574&auto=format&fit=crop", 
-    likes: "310",
-    comments: "18"
-  },
-  { 
-    id: 6, 
-    url: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop", 
-    likes: "98",
-    comments: "4"
-  }
-];
+const INSTAGRAM_HANDLE = 'oestudiocinza';
+const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
 
 const Portfolio: React.FC = () => {
+  const [posts, setPosts] = useState<InstagramMedia[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadInstagram = async () => {
+      try {
+        const media = await fetchInstagramMedia(6);
+        setPosts(media);
+      } catch (err) {
+        console.error(err);
+        setError('Não foi possível carregar o feed do Instagram no momento.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadInstagram();
+  }, []);
+
+  const displayedPosts = useMemo(() => {
+    return posts
+      .filter((post) => post.media_type === 'IMAGE' || post.media_type === 'CAROUSEL_ALBUM' || post.media_type === 'VIDEO')
+      .slice(0, 6);
+  }, [posts]);
+
   return (
     <section id="gallery" className="py-32 bg-transparent px-6 border-b border-cinza-100/50">
       <div className="max-w-5xl mx-auto">
@@ -67,7 +57,7 @@ const Portfolio: React.FC = () => {
             </p>
             
             <a 
-                href="https://www.instagram.com/oestudiocinza/" 
+                href={INSTAGRAM_URL} 
                 target="_blank" 
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-black text-white px-8 py-3 rounded-lg text-sm font-bold hover:bg-cinza-800 transition-colors shadow-md"
@@ -78,43 +68,55 @@ const Portfolio: React.FC = () => {
         </div>
 
         {/* Feed Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4">
-          {instagramPosts.map((post) => (
-            <a 
-              key={post.id} 
-              href="https://www.instagram.com/oestudiocinza/"
-              target="_blank"
-              rel="noreferrer"
-              className="group relative aspect-square overflow-hidden bg-cinza-100 cursor-pointer md:rounded-lg shadow-sm hover:shadow-xl transition-all"
-            >
-              <img 
-                src={post.url} 
-                alt="Instagram Post"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6 text-white">
-                <div className="flex items-center gap-2 font-bold">
-                    <Heart className="fill-white" size={20} />
-                    <span>{post.likes}</span>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4 min-h-[240px]">
+          {loading && (
+            <div className="col-span-full flex items-center justify-center py-8 text-cinza-500 gap-2">
+              <Loader2 className="animate-spin" size={20} />
+              <span>Carregando posts reais do Instagram...</span>
+            </div>
+          )}
+
+          {!loading && error && (
+            <div className="col-span-full text-center text-cinza-500 text-sm bg-cinza-50 border border-cinza-100 rounded-lg p-4">
+              {error}{' '}
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="font-bold text-black underline underline-offset-4"
+              >
+                Ver perfil direto no Instagram
+              </a>
+            </div>
+          )}
+
+          {!loading &&
+            !error &&
+            displayedPosts.map((post) => (
+              <a
+                key={post.id}
+                href={post.permalink || INSTAGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative aspect-square overflow-hidden bg-cinza-100 cursor-pointer md:rounded-lg shadow-sm hover:shadow-xl transition-all"
+              >
+                <img
+                  src={post.media_type === 'VIDEO' ? post.thumbnail_url || post.media_url : post.media_url}
+                  alt={post.caption || 'Instagram Post'}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <ExternalLink className="text-white drop-shadow-lg" size={20} />
                 </div>
-                <div className="flex items-center gap-2 font-bold">
-                    <MessageCircle className="fill-white" size={20} />
-                    <span>{post.comments}</span>
-                </div>
-              </div>
-              
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ExternalLink className="text-white drop-shadow-lg" size={20} />
-              </div>
-            </a>
-          ))}
+              </a>
+            ))}
         </div>
         
         <div className="mt-10 text-center md:hidden">
              <a 
-                href="https://www.instagram.com/oestudiocinza/" 
+                href={INSTAGRAM_URL} 
                 className="text-cinza-500 text-xs font-bold uppercase tracking-widest hover:text-black transition-colors"
             >
                 Ver feed completo &rarr;
