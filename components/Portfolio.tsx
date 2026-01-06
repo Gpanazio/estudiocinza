@@ -27,9 +27,11 @@ const Portfolio: React.FC = () => {
             <div className="w-20 h-20 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[2px] rounded-full mb-6 shadow-lg">
                 <div className="w-full h-full bg-white rounded-full p-1">
                     <img 
-                        src="https://images.unsplash.com/photo-1590176885994-3e91c78103c8?q=80&w=200&auto=format&fit=crop" 
+                        src="/estudioprofile.jpg"
                         alt="Profile" 
                         className="w-full h-full object-cover rounded-full"
+                        width={1006}
+                        height={1006}
                     />
                 </div>
             </div>
