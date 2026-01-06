@@ -3,7 +3,7 @@ import { Instagram } from 'lucide-react';
 
 const INSTAGRAM_HANDLE = 'oestudiocinza';
 const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
-const LIGHTWIDGET_SRC = '//lightwidget.com/widgets/a19c8a3c6f085a4e9d342fc7e53f6d36.html';
+const LIGHTWIDGET_SRC = 'https://cdn.lightwidget.com/widgets/a19c8a3c6f085a4e9d342fc7e53f6d36.html';
 const LIGHTWIDGET_SCRIPT_ID = 'lightwidget-script';
 
 const Portfolio: React.FC = () => {
