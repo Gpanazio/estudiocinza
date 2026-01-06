@@ -18,3 +18,6 @@ View your app in AI Studio: https://ai.studio/apps/drive/1l1k1aK5n4fcc8rp8GLn_VA
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+### Instagram real
+A galeria usa um embed do LightWidget; não precisa de token ou variáveis de ambiente. Se quiser trocar o widget, atualize o `iframe` em `components/Portfolio.tsx` com o código novo gerado pelo LightWidget.

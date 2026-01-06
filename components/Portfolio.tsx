@@ -1,47 +1,23 @@
-import React from 'react';
-import { Instagram, Heart, MessageCircle, ExternalLink } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Instagram } from 'lucide-react';
 
-// Simulating latest posts with high-quality studio aesthetic images
-const instagramPosts = [
-  { 
-    id: 1, 
-    url: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1470&auto=format&fit=crop", 
-    likes: "124",
-    comments: "8"
-  },
-  { 
-    id: 2, 
-    url: "https://images.unsplash.com/photo-1554048612-387768052bf7?q=80&w=1530&auto=format&fit=crop", 
-    likes: "89",
-    comments: "3"
-  },
-  { 
-    id: 3, 
-    url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1638&auto=format&fit=crop", 
-    likes: "256",
-    comments: "12"
-  },
-  { 
-    id: 4, 
-    url: "https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=2670&auto=format&fit=crop", 
-    likes: "142",
-    comments: "5"
-  },
-  { 
-    id: 5, 
-    url: "https://images.unsplash.com/photo-1534234828563-02511c766f76?q=80&w=2574&auto=format&fit=crop", 
-    likes: "310",
-    comments: "18"
-  },
-  { 
-    id: 6, 
-    url: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop", 
-    likes: "98",
-    comments: "4"
-  }
-];
+const INSTAGRAM_HANDLE = 'oestudiocinza';
+const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
+const LIGHTWIDGET_SRC = '//lightwidget.com/widgets/a19c8a3c6f085a4e9d342fc7e53f6d36.html';
+const LIGHTWIDGET_SCRIPT_ID = 'lightwidget-script';
 
 const Portfolio: React.FC = () => {
+  useEffect(() => {
+    const existingScript = document.getElementById(LIGHTWIDGET_SCRIPT_ID);
+    if (existingScript) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.lightwidget.com/widgets/lightwidget.js';
+    script.id = LIGHTWIDGET_SCRIPT_ID;
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <section id="gallery" className="py-32 bg-transparent px-6 border-b border-cinza-100/50">
       <div className="max-w-5xl mx-auto">
@@ -67,7 +43,7 @@ const Portfolio: React.FC = () => {
             </p>
             
             <a 
-                href="https://www.instagram.com/oestudiocinza/" 
+                href={INSTAGRAM_URL} 
                 target="_blank" 
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-black text-white px-8 py-3 rounded-lg text-sm font-bold hover:bg-cinza-800 transition-colors shadow-md"
@@ -77,44 +53,21 @@ const Portfolio: React.FC = () => {
             </a>
         </div>
 
-        {/* Feed Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4">
-          {instagramPosts.map((post) => (
-            <a 
-              key={post.id} 
-              href="https://www.instagram.com/oestudiocinza/"
-              target="_blank"
-              rel="noreferrer"
-              className="group relative aspect-square overflow-hidden bg-cinza-100 cursor-pointer md:rounded-lg shadow-sm hover:shadow-xl transition-all"
-            >
-              <img 
-                src={post.url} 
-                alt="Instagram Post"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6 text-white">
-                <div className="flex items-center gap-2 font-bold">
-                    <Heart className="fill-white" size={20} />
-                    <span>{post.likes}</span>
-                </div>
-                <div className="flex items-center gap-2 font-bold">
-                    <MessageCircle className="fill-white" size={20} />
-                    <span>{post.comments}</span>
-                </div>
-              </div>
-              
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ExternalLink className="text-white drop-shadow-lg" size={20} />
-              </div>
-            </a>
-          ))}
+        {/* Feed Grid - LightWidget embed */}
+        <div className="w-full overflow-hidden rounded-lg shadow-sm border border-cinza-100">
+          <iframe
+            src={LIGHTWIDGET_SRC}
+            scrolling="no"
+            allowTransparency={true}
+            className="lightwidget-widget w-full"
+            style={{ border: 0, overflow: 'hidden', width: '100%' }}
+            title="Instagram feed do Estúdio Cinza"
+          />
         </div>
         
         <div className="mt-10 text-center md:hidden">
              <a 
-                href="https://www.instagram.com/oestudiocinza/" 
+                href={INSTAGRAM_URL} 
                 className="text-cinza-500 text-xs font-bold uppercase tracking-widest hover:text-black transition-colors"
             >
                 Ver feed completo &rarr;
