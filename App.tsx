@@ -13,10 +13,15 @@ const App: React.FC = () => {
       
       {/* GRID ARQUITETÔNICO GLOBAL (Fundo Fixo) */}
       <div 
-        className="fixed inset-0 z-0 opacity-[0.35] pointer-events-none" 
+        className="fixed inset-0 z-0 pointer-events-none" 
         style={{
-          backgroundImage: 'linear-gradient(#e5e7eb 1.5px, transparent 1.5px), linear-gradient(to right, #e5e7eb 1.5px, transparent 1.5px)',
-          backgroundSize: '40px 40px'
+          backgroundImage: [
+            'linear-gradient(#e5e7eb66 1px, transparent 1px)',
+            'linear-gradient(to right, #e5e7eb66 1px, transparent 1px)'
+          ].join(', '),
+          backgroundSize: '56px 56px',
+          backgroundPosition: 'top left',
+          opacity: 0.6
         }} 
       />
 
