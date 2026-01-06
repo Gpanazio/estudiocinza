@@ -1,36 +1,22 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Instagram, ExternalLink, Loader2 } from 'lucide-react';
-import { fetchInstagramMedia, InstagramMedia } from '../services/instagramService';
+import React, { useEffect } from 'react';
+import { Instagram } from 'lucide-react';
 
 const INSTAGRAM_HANDLE = 'oestudiocinza';
 const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
+const LIGHTWIDGET_SRC = '//lightwidget.com/widgets/a19c8a3c6f085a4e9d342fc7e53f6d36.html';
+const LIGHTWIDGET_SCRIPT_ID = 'lightwidget-script';
 
 const Portfolio: React.FC = () => {
-  const [posts, setPosts] = useState<InstagramMedia[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    const loadInstagram = async () => {
-      try {
-        const media = await fetchInstagramMedia(6);
-        setPosts(media);
-      } catch (err) {
-        console.error(err);
-        setError('Não foi possível carregar o feed do Instagram no momento.');
-      } finally {
-        setLoading(false);
-      }
-    };
+    const existingScript = document.getElementById(LIGHTWIDGET_SCRIPT_ID);
+    if (existingScript) return;
 
-    loadInstagram();
+    const script = document.createElement('script');
+    script.src = 'https://cdn.lightwidget.com/widgets/lightwidget.js';
+    script.id = LIGHTWIDGET_SCRIPT_ID;
+    script.async = true;
+    document.body.appendChild(script);
   }, []);
-
-  const displayedPosts = useMemo(() => {
-    return posts
-      .filter((post) => post.media_type === 'IMAGE' || post.media_type === 'CAROUSEL_ALBUM' || post.media_type === 'VIDEO')
-      .slice(0, 6);
-  }, [posts]);
 
   return (
     <section id="gallery" className="py-32 bg-transparent px-6 border-b border-cinza-100/50">
@@ -67,51 +53,16 @@ const Portfolio: React.FC = () => {
             </a>
         </div>
 
-        {/* Feed Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4 min-h-[240px]">
-          {loading && (
-            <div className="col-span-full flex items-center justify-center py-8 text-cinza-500 gap-2">
-              <Loader2 className="animate-spin" size={20} />
-              <span>Carregando posts reais do Instagram...</span>
-            </div>
-          )}
-
-          {!loading && error && (
-            <div className="col-span-full text-center text-cinza-500 text-sm bg-cinza-50 border border-cinza-100 rounded-lg p-4">
-              {error}{' '}
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="font-bold text-black underline underline-offset-4"
-              >
-                Ver perfil direto no Instagram
-              </a>
-            </div>
-          )}
-
-          {!loading &&
-            !error &&
-            displayedPosts.map((post) => (
-              <a
-                key={post.id}
-                href={post.permalink || INSTAGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative aspect-square overflow-hidden bg-cinza-100 cursor-pointer md:rounded-lg shadow-sm hover:shadow-xl transition-all"
-              >
-                <img
-                  src={post.media_type === 'VIDEO' ? post.thumbnail_url || post.media_url : post.media_url}
-                  alt={post.caption || 'Instagram Post'}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                />
-
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <ExternalLink className="text-white drop-shadow-lg" size={20} />
-                </div>
-              </a>
-            ))}
+        {/* Feed Grid - LightWidget embed */}
+        <div className="w-full overflow-hidden rounded-lg shadow-sm border border-cinza-100">
+          <iframe
+            src={LIGHTWIDGET_SRC}
+            scrolling="no"
+            allowTransparency={true}
+            className="lightwidget-widget w-full"
+            style={{ border: 0, overflow: 'hidden', width: '100%' }}
+            title="Instagram feed do Estúdio Cinza"
+          />
         </div>
         
         <div className="mt-10 text-center md:hidden">
