@@ -19,12 +19,14 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: SectionId) => {
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, id: SectionId) => {
+    event.preventDefault();
     setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
       const offset = 100;
-      window.scrollTo({ top: element.offsetTop - offset, behavior: "smooth" });
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
     } else if (id === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -35,7 +37,7 @@ const Header: React.FC = () => {
       {/* Desktop Floating Dock */}
       <header className={`hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out ${isScrolled ? 'w-auto' : 'w-[90%] max-w-5xl'}`}>
         <div className={`relative flex items-center justify-between w-full px-2 py-2 bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-full transition-all duration-500 ${isScrolled ? 'gap-6 pr-2' : 'gap-12 pr-2'}`}>
-          <button onClick={() => scrollToSection('home')} className="flex items-center gap-3 pl-4 group shrink-0">
+          <a href="#home" onClick={(event) => handleNavClick(event, 'home')} className="flex items-center gap-3 pl-4 group shrink-0">
             <div className="bg-black text-white p-1.5 rounded-lg group-hover:rotate-12 transition-transform">
                <Square className="w-4 h-4 fill-current" />
             </div>
@@ -43,13 +45,18 @@ const Header: React.FC = () => {
               <span className="text-sm font-bold tracking-tighter font-display text-black leading-none uppercase">Estúdio Cinza</span>
               <span className="text-[9px] text-gray-400 uppercase tracking-widest leading-none mt-1">Rio de Janeiro</span>
             </div>
-          </button>
+          </a>
 
           <nav className="flex items-center gap-1">
             {navItems.map((item) => (
-              <button key={item.id} onClick={() => scrollToSection(item.id)} className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black hover:bg-black/5 rounded-full transition-all">
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(event) => handleNavClick(event, item.id)}
+                className="px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black hover:bg-black/5 rounded-full transition-all"
+              >
                 {item.label}
-              </button>
+              </a>
             ))}
           </nav>
 
@@ -66,27 +73,44 @@ const Header: React.FC = () => {
       {/* Mobile Header */}
       <header className="md:hidden fixed top-4 left-4 right-4 z-50">
         <div className="bg-white/90 backdrop-blur-lg border border-white/40 shadow-xl rounded-2xl px-4 py-3 flex justify-between items-center">
-            <button onClick={() => scrollToSection('home')} className="flex items-center gap-2">
+            <a href="#home" onClick={(event) => handleNavClick(event, 'home')} className="flex items-center gap-2">
               <div className="bg-black text-white p-1 rounded">
                 <Square className="w-4 h-4 fill-current" />
               </div>
               <span className="text-sm font-bold font-display tracking-tight">CINZA</span>
-            </button>
+            </a>
             <div className="flex items-center gap-2">
                <a href="https://wa.me/5521999846611" className="w-10 h-10 flex items-center justify-center bg-black text-white rounded-xl shadow-lg">
                  <MessageCircle size={18} />
                </a>
-               <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="w-10 h-10 flex items-center justify-center bg-gray-100 text-black rounded-xl border border-gray-200">
+               <button
+                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                 className="w-10 h-10 flex items-center justify-center bg-gray-100 text-black rounded-xl border border-gray-200"
+                 aria-expanded={isMobileMenuOpen}
+                 aria-controls="mobile-menu"
+                 aria-label={isMobileMenuOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
+               >
                 {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
         </div>
         {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 mt-3 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-3xl p-4 shadow-2xl animate-fade-in flex flex-col gap-2">
+          <div
+            id="mobile-menu"
+            role="menu"
+            aria-label="Menu de navegação principal"
+            className="absolute top-full left-0 right-0 mt-3 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-3xl p-4 shadow-2xl animate-fade-in flex flex-col gap-2"
+          >
              {navItems.map((item) => (
-              <button key={item.id} onClick={() => scrollToSection(item.id)} className="w-full text-left px-5 py-4 text-sm font-bold uppercase tracking-widest text-gray-800 border-b border-gray-50 last:border-0">
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(event) => handleNavClick(event, item.id)}
+                className="w-full text-left px-5 py-4 text-sm font-bold uppercase tracking-widest text-gray-800 border-b border-gray-50 last:border-0"
+                role="menuitem"
+              >
                 {item.label}
-              </button>
+              </a>
             ))}
           </div>
         )}
