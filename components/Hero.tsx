@@ -52,7 +52,14 @@ const Hero: React.FC = () => {
                 <div className="p-2 bg-cinza-50 rounded-full border border-cinza-100">
                     <MapPin size={16} />
                 </div>
-                <span className="text-sm font-medium border-b border-cinza-200 pb-0.5">Rua Teotônio Regadas, 26 — Lapa</span>
+                <a
+                  href="https://www.google.com/maps?q=Rua+Teot%C3%B4nio+Regadas,+26,+sala+604+-+Lapa,+Rio+de+Janeiro,+RJ"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm font-medium border-b border-cinza-200 pb-0.5 hover:text-cinza-700 transition-colors"
+                >
+                  Rua Teotônio Regadas, 26, sala 604 - Lapa, Rio de Janeiro/RJ
+                </a>
             </div>
         </div>
 
