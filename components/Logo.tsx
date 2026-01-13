@@ -15,7 +15,7 @@ const Logo: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         gap: '40px',
-        transform: 'scale(8)'
+        transform: 'scale(4)'
       }}>
         <div style={{
           backgroundColor: 'black',
